@@ -1,0 +1,6 @@
+{
+  "unmock.refreshToken": null,
+  "editor.formatOnSave": true,
+  "html.format.wrapAttributes": "force",
+  "html.format.wrapLineLength": 40
+}
