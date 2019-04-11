@@ -36,21 +36,51 @@ showSelection.onclick = function() {
 const saveSelection = document.getElementById("saveSelection");
 
 saveSelection.onclick = function() {
-  console.log("Saving selection");
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     const tab = tabs[0];
+    const url = new URL(tab.url);
+    const hostname = url.hostname;
+    const pathname = url.pathname;
+
     chrome.tabs.executeScript(
       tab.id,
       {
         code: "window.getSelection().toString();",
       },
-      function(selection) {
-        console.log(
-          `Saving selection for url ${tab.url} and title ${tab.title}: ${
-            selection[0]
-          }`
-        );
+      function(results) {
+        const selection = results[0];
+        console.log(`Saving selection for url ${url}: '${selection}'`);
+        const toSave = { pathname, selection };
+        chrome.storage.sync.set({ [hostname]: toSave }, function() {
+          console.log(`Saved to ${hostname}: ${JSON.stringify(toSave)}`);
+          updateShownSaved(JSON.stringify(toSave));
+        });
       }
     );
   });
 };
+
+const savedSelection = document.getElementById("savedSelection");
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  for (var key in changes) {
+    var storageChange = changes[key];
+    console.log(
+      'Storage key "%s" in namespace "%s" changed. ' +
+        'Old value was "%s", new value is "%s".',
+      key,
+      namespace,
+      JSON.stringify(storageChange.oldValue),
+      JSON.stringify(storageChange.newValue)
+    );
+  }
+});
+
+function updateShownSaved() {
+  chrome.storage.sync.get("developer.chrome.com", function(items) {
+    console.log(`Saved: ${JSON.stringify(items)}`);
+    savedSelection.innerHTML = JSON.stringify(items);
+  });
+}
+
+updateShownSaved();
