@@ -53,7 +53,6 @@ saveSelection.onclick = function() {
         const toSave = { pathname, selection };
         chrome.storage.sync.set({ [hostname]: toSave }, function() {
           console.log(`Saved to ${hostname}: ${JSON.stringify(toSave)}`);
-          updateShownSaved(JSON.stringify(toSave));
         });
       }
     );
@@ -74,6 +73,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
       JSON.stringify(storageChange.newValue)
     );
   }
+  updateShownSaved(JSON.stringify(toSave));
 });
 
 function updateShownSaved() {
