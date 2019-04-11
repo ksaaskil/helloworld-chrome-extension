@@ -51,9 +51,12 @@ saveSelection.onclick = function() {
         const selection = results[0];
         console.log(`Saving selection for url ${url}: '${selection}'`);
         const toSave = { pathname, selection };
-        chrome.storage.sync.set({ [hostname]: toSave }, function() {
-          console.log(`Saved to ${hostname}: ${JSON.stringify(toSave)}`);
-        });
+        chrome.storage.local.set(
+          { [hostname]: JSON.stringify(toSave) },
+          function() {
+            console.log(`Saved to ${hostname}: ${JSON.stringify(toSave)}`);
+          }
+        );
       }
     );
   });
@@ -73,11 +76,11 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
       JSON.stringify(storageChange.newValue)
     );
   }
-  updateShownSaved(JSON.stringify(toSave));
+  updateShownSaved();
 });
 
 function updateShownSaved() {
-  chrome.storage.sync.get("developer.chrome.com", function(items) {
+  chrome.storage.local.get("developer.chrome.com", function(items) {
     console.log(`Saved: ${JSON.stringify(items)}`);
     savedSelection.innerHTML = JSON.stringify(items);
   });
