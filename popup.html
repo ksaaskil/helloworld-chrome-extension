@@ -7,20 +7,57 @@
                 width: 30px;
                 outline: none;
             }
+            button {
+                color: #0099CC;
+                background: transparent;
+                border: 2px solid #0099CC;
+                border-radius: 6px;
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s;
+                /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            button {
+                background-color: white;
+                color: black;
+                border: 2px solid #008CBA;
+            }
+
+            button:hover {
+                background-color: #008CBA;
+                color: white;
+            }
         </style>
     </head>
     <body>
-        <button id="changeColor"></button>
+        <div>
+            Change background color:
+            <button id="changeColor"></button>
+        </div>
+
         <div>
             <button id="showSelection">Show selection</button>
             <div id="output"></div>
         </div>
         <div>
-            <button id="saveSelection">Save selection</button>
+            Saved selections by host and path name:
+            <div id="savedSelection"></div>
         </div>
-        <div id="savedSelection"></div>
         <div>
-            <button id="export">Export</button>
+            <button id="saveSelection">Save current selection</button>
+        </div>
+        <div>
+            <button id="export">Export selections</button>
         </div>
         <div>
             <button id="messageContentScript">Message to content script</button>
