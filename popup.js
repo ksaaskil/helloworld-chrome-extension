@@ -87,3 +87,18 @@ function updateShownSaved() {
 }
 
 updateShownSaved();
+
+const exportButton = document.getElementById("export");
+
+exportButton.onclick = () => {
+  console.log("Exporting data...");
+  chrome.storage.local.get(null, items => {
+    const text = JSON.stringify(items);
+    const url = "data:application/json;base64," + btoa(text);
+    chrome.downloads.download({
+      url,
+      filename: "export.json",
+    });
+    console.log(`Exported: ${text}`);
+  });
+};
