@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.google.com/*"],
-      "all_frames": false,
+      "all_frames": true,
       "run_at": "document_idle",
       "js": ["contentScript.js"]
     }

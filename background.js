@@ -43,6 +43,31 @@ chrome.runtime.onInstalled.addListener(() => {
   setupContextMenus();
 });
 
+const sendMessageToActiveCurrentWindowTab = (message, callback) => {
+  console.log(`Sending message: ${JSON.stringify(message)}`);
+  // chrome.runtime.sendMessage(message, callback);
+  // Sending request from extension to content script
+  chrome.tabs.query(
+    {
+      active: true,
+      currentWindow: true,
+    },
+    function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, message, callback);
+    }
+  );
+};
+
+chrome.contextMenus.onClicked.addListener(function(item, tab) {
+  console.log(
+    `Selection menu '${item.menuItemId}' got selection: '${item.selectionText}'`
+  );
+  sendMessageToActiveCurrentWindowTab({
+    type: "selection handled",
+    selection: item.selectionText,
+  });
+});
+
 chrome.runtime.onSuspend.addListener(() => {
   console.log("Suspending.");
 });
