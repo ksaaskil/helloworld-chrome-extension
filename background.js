@@ -41,10 +41,21 @@ const setupContextMenus = () => {
 // Add context menus
 chrome.runtime.onInstalled.addListener(() => {
   setupContextMenus();
-  chrome.browserAction.setBadgeText({ text: "!" });
-  chrome.browserAction.setBadgeBackgroundColor({ color: "#4688F1" });
 });
 
 chrome.runtime.onSuspend.addListener(() => {
   console.log("Suspending.");
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(
+    sender.tab
+      ? "from a content script:" + sender.tab.url
+      : "from the extension"
+  );
+  if (request.greeting == "hello") sendResponse({ farewell: "goodbye" });
+  if (request.title) {
+    chrome.browserAction.setBadgeText({ text: "OK" });
+    chrome.browserAction.setBadgeBackgroundColor({ color: "#4688F1" });
+  }
 });
