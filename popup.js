@@ -80,7 +80,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 function updateShownSaved() {
-  chrome.storage.local.get("developer.chrome.com", function(items) {
+  chrome.storage.local.get(null, function(items) {
     console.log(`Saved: ${JSON.stringify(items)}`);
     savedSelection.innerHTML = JSON.stringify(items);
   });
