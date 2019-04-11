@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Example Chrome extension",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "Play around with Chrome extensions!",
   "permissions": [
     "activeTab",
     "contextMenus",

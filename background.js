@@ -20,7 +20,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
 // Holds the data structure for all the context menus used in the app
 const CONTEXT_MENU_CONTENTS = {
-  forSelection: ["Selection context menu"],
+  forSelection: ["Handle selection"],
 };
 
 const setupContextMenus = () => {
@@ -45,8 +45,6 @@ chrome.runtime.onInstalled.addListener(() => {
 
 const sendMessageToActiveCurrentWindowTab = (message, callback) => {
   console.log(`Sending message: ${JSON.stringify(message)}`);
-  // chrome.runtime.sendMessage(message, callback);
-  // Sending request from extension to content script
   chrome.tabs.query(
     {
       active: true,

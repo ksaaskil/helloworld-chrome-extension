@@ -14,5 +14,6 @@ Chrome extension built on top of [these instructions](https://developer.chrome.c
   - changing background color by clicking square (with extension options for choosing color)
   - showing current text selection
   - saving text selection to local storage
+  - exporting saved selection in `json` format
 - Context menu for handling selections in `background.js`
 - Content script for reading DOM and sending/handling messages
