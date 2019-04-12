@@ -36,7 +36,7 @@ function colorSelection() {
   if (LAST_ELEMENT && LAST_SELECTION) {
     console.log(`Colored element: ${LAST_ELEMENT}`);
     const cleanedSelection = LAST_SELECTION.toString().replace(
-      new RegExp("</?w*>"),
+      new RegExp("</?script>"),
       ""
     );
     LAST_ELEMENT.innerHTML = LAST_ELEMENT.innerHTML.replace(
