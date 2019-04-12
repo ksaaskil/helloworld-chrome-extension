@@ -62,8 +62,6 @@ saveSelection.onclick = function() {
   });
 };
 
-const savedSelection = document.getElementById("savedSelection");
-
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   for (var key in changes) {
     var storageChange = changes[key];
@@ -76,17 +74,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
       JSON.stringify(storageChange.newValue)
     );
   }
-  updateShownSaved();
 });
-
-function updateShownSaved() {
-  chrome.storage.local.get(null, function(items) {
-    console.log(`Saved: ${JSON.stringify(items)}`);
-    savedSelection.innerHTML = JSON.stringify(items);
-  });
-}
-
-updateShownSaved();
 
 const exportButton = document.getElementById("export");
 
@@ -126,4 +114,13 @@ messageContentScriptButton.onclick = () => {
       );
     }
   );
+};
+
+const openButton = document.getElementById("open");
+
+openButton.onclick = () => {
+  chrome.windows.create({
+    url: chrome.runtime.getURL("window.html"),
+    type: "popup",
+  });
 };
