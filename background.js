@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
 // Holds the data structure for all the context menus used in the app
 const CONTEXT_MENU_CONTENTS = {
-  forSelection: ["Bold"],
+  forSelection: ["Highlight"],
 };
 
 const setupContextMenus = () => {

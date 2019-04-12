@@ -1,6 +1,6 @@
 # Example Chrome extension
 
-Chrome extension built on top of [these instructions](https://developer.chrome.com/extensions/getstarted), demonstrating some features of interest.
+Chrome extension initially built on top of [these instructions](https://developer.chrome.com/extensions/getstarted), with more features added while learning.
 
 ## Usage
 
@@ -10,10 +10,11 @@ Chrome extension built on top of [these instructions](https://developer.chrome.c
 
 ## Features
 
-- Browser action menu for
-  - changing background color by clicking square (with extension options for choosing color)
-  - showing current text selection
-  - saving text selection to local storage
-  - exporting saved selection in `json` format
-- Context menu for handling selections in `background.js`
-- Content script for reading DOM and sending/handling messages
+- Browser action pop-up for
+  - changing background color by clicking square (with extension options for choosing color, this comes from the original tutorial)
+  - showing current text selection in the popup
+  - saving current text selection to local storage by host name
+  - exporting saved selections in `json` format
+  - opening new extension window showing saved selections
+- Context menu for highlighting selections, works by passing messages so that the background script can do something with the selection as well
+- Content script for reading DOM and notifying background script if page contains given content
