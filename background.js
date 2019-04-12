@@ -2,25 +2,11 @@ chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.sync.set({ color: "#3aa757" }, function() {
     console.log("The color is green.");
   });
-  /*
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([
-      {
-        conditions: [
-          new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostEquals: "developer.chrome.com" },
-          }),
-        ],
-        actions: [new chrome.declarativeContent.showPageAction()],
-      },
-    ]);
-  });
-  */
 });
 
 // Holds the data structure for all the context menus used in the app
 const CONTEXT_MENU_CONTENTS = {
-  forSelection: ["Handle selection"],
+  forSelection: ["Bold"],
 };
 
 const setupContextMenus = () => {
