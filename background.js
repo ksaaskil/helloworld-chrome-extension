@@ -57,14 +57,15 @@ chrome.runtime.onSuspend.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log(
-    sender.tab
-      ? "from a content script:" + sender.tab.url
-      : "from the extension"
-  );
+  let logMessage = `Got message '${JSON.stringify(request)}' from `;
+  logMessage += sender.tab
+    ? "from a content script at: " + sender.tab.url
+    : "from the extension";
+  console.log(logMessage);
   if (request.greeting == "hello") sendResponse({ farewell: "goodbye" });
-  if (request.title) {
-    chrome.browserAction.setBadgeText({ text: "OK" });
+  if (request.activate) {
+    console.log(`Activating badge as got: ${JSON.stringify(request)}`);
+    chrome.browserAction.setBadgeText({ text: "ON" });
     chrome.browserAction.setBadgeBackgroundColor({ color: "#4688F1" });
   }
 });

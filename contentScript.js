@@ -14,6 +14,14 @@ sendMessage(message, response => {
 const title = document.title;
 sendMessage({ title });
 
+function activateIfFound(text) {
+  const htmlString = document.documentElement.outerHTML.toString();
+  const activate = new RegExp(text).test(htmlString);
+  sendMessage({ activate });
+}
+
+activateIfFound("Python");
+
 // Listening to message
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log(`Got message: ${JSON.stringify(request)}`);
@@ -21,6 +29,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     colorSelection();
   }
 });
+
+const HIGHLIGHT_TAG = "mark";
 
 function colorSelection() {
   if (LAST_ELEMENT && LAST_SELECTION) {
@@ -31,7 +41,7 @@ function colorSelection() {
     );
     LAST_ELEMENT.innerHTML = LAST_ELEMENT.innerHTML.replace(
       cleanedSelection,
-      `<b>${cleanedSelection}</b>`
+      `<${HIGHLIGHT_TAG}>${cleanedSelection}</${HIGHLIGHT_TAG}>`
     );
   } else {
     console.log("Nothing to color.");
